@@ -21,8 +21,11 @@ export function login(req, res, next) {
             } else {
               //password match was successfull
               if (result) {
+                //hashed password should not be revealed
+                user = user._doc;
+                delete user.password;
                 res.json({
-                  user,
+                  user: user,
                   token: jwt.sign(
                     {
                       //encoding role is optional. One option is that on each request _id is extracted from the token and then role is checked from DB for this token.
