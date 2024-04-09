@@ -1,6 +1,8 @@
 import express, { json } from "express";
 import cors from "cors";
 
+import authRouter from './routers/auth.router.js';
+
 export default function startApplication() {
   const app = express();
   const PORT = process.env.PORT;
@@ -10,7 +12,7 @@ export default function startApplication() {
   app.use(cors());
 
   //register paths
-  
+  app.use('/auth', authRouter);
   //Wildcard path for catching everything that didn't match
   app.use("*", (req, res) => {
     throw new Error(404);
