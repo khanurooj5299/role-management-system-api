@@ -12,4 +12,8 @@ const connectionPromise = mongoose.connect(MONGO_URI)
     throw err;
   });
 
-export {connectionPromise as connect};
+function disconnect() {
+  mongoose.connection.close();
+}
+
+export {connectionPromise as connect, disconnect};
