@@ -1,7 +1,7 @@
 import express, { json } from "express";
 import cors from "cors";
 
-import authRouter from './routers/auth.router.js';
+import authRouter from "./routers/auth.router.js";
 
 export default function startApplication() {
   const app = express();
@@ -12,7 +12,7 @@ export default function startApplication() {
   app.use(cors());
 
   //register paths
-  app.use('/auth', authRouter);
+  app.use("/auth", authRouter);
   //Wildcard path for catching everything that didn't match
   app.use("*", (req, res) => {
     throw new Error(404);
@@ -28,6 +28,8 @@ export default function startApplication() {
       res.status(404).send("Nothing here");
     } else if (err.status == 400) {
       res.status(400).send(err.message || "Bad request");
+    } else if (err.status == 401) {
+      res.status(401).send(err.message || "Invalid Credentials");
     } else {
       console.dir(err.message || err);
       res.status(500).send("Something went wrong!");
