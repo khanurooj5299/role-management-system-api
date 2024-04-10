@@ -13,3 +13,10 @@ export function getUsers(req, res, next) {
     .then((users) => res.json(users))
     .catch(next);
 }
+
+export function getUserCount(req, res, next) {
+  UserModel.countDocuments({})
+    .exec()
+    .then((count) => res.json({ count }))
+    .catch(next);
+}
