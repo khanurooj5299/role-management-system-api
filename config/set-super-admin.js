@@ -26,6 +26,8 @@ connect
               password: hash,
               created: new Date(),
               role: "super-admin",
+              firstName: process.env.SUPER_ADMIN_FIRSTNAME,
+              lastName: process.env.SUPER_ADMIN_LASTNAME
             });
             console.log("User created successfully");
           } catch (err) {
