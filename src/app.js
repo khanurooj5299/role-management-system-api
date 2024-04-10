@@ -31,7 +31,7 @@ export default function startApplication() {
     } else if (err.status == 400) {
       res.status(400).send(err.message || "Bad request");
     } else if (err.status == 401) {
-      res.status(401).send(err.message || "Invalid Credentials");
+      res.status(401).send(err.message || "Unauthorized");
     } else if (err.status == 403) {
       res.status(403).send(err.message || "Forbidden");
     } else {
