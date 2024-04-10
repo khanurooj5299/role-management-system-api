@@ -34,6 +34,8 @@ export default function startApplication() {
       res.status(401).send(err.message || "Unauthorized");
     } else if (err.status == 403) {
       res.status(403).send(err.message || "Forbidden");
+    } else if (err.status == 409) {
+      res.status(409).send(err.message || "Conflict");
     } else {
       console.dir(err.message || err);
       res.status(500).send("Something went wrong!");
