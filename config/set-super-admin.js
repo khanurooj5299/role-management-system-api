@@ -20,14 +20,20 @@ connect
           console.log("Could not create hash");
           console.log(err);
         } else {
-          await UserModel.create({
-            email: process.env.SUPER_ADMIN_EMAIL,
-            password: hash,
-            created: new Date(),
-            role: "super-admin",
-          });
-          console.log("User created successfully");
-          disconnect();
+          try {
+            await UserModel.create({
+              email: process.env.SUPER_ADMIN_EMAIL,
+              password: hash,
+              created: new Date(),
+              role: "super-admin",
+            });
+            console.log("User created successfully");
+          } catch (err) {
+            console.log("Could not create Super-admin");
+            console.log(err);
+          } finally {
+            disconnect();
+          }
         }
       });
     }
