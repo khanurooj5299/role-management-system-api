@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import roles from '../../config/roles.js';
+import rolesArray from '../../config/roles.js';
 
 const userSchema = new mongoose.Schema({
     email: String,
@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
     lastName: String,
     role: {
         type: String,
-        enum: roles
+        enum: rolesArray
     },
     category: String,
     lastUpdated: Date,
