@@ -36,7 +36,7 @@ export function addUser(req, res, next) {
           if (result) {
             next({
               status: 409,
-              message: "Email already exists"
+              message: "Email already exists",
             });
           } else {
             UserModel.create({
@@ -44,11 +44,38 @@ export function addUser(req, res, next) {
               created: new Date(),
               password: hash,
             })
-            .then(() => res.json({ message: "User created succsessfully" }))
-            .catch(next);
+              .then(() => res.json({ message: "User created succsessfully" }))
+              .catch(next);
           }
         })
         .catch(next);
     }
   });
+}
+
+export function editUser(req, res, next) {
+  const id = req.body._id;
+  if (id) {
+    UserModel.findOneAndUpdate(
+      req.body.id,
+      { ...req.body, lastUpdated: new Date() },
+      { runValidators: true }
+    )
+      .then((result) => {
+        if (result) {
+          res.json({ message: "User updated successfully" });
+        } else {
+          throw {
+            status: 404,
+            message: "User not found",
+          };
+        }
+      })
+      .catch(next);
+  } else {
+    throw {
+      status: 400,
+      message: "Missing user id",
+    };
+  }
 }

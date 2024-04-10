@@ -17,7 +17,7 @@ export default function startApplication() {
   app.use("/admin", adminRouter);
   //Wildcard path for catching everything that didn't match
   app.use("*", (req, res) => {
-    throw new Error(404);
+    throw { status: 404 };
   });
 
   //Register centralized error handling middleware
@@ -26,8 +26,8 @@ export default function startApplication() {
     if (res.headersSent) {
       return next(err);
     }
-    if (err.message == 404) {
-      res.status(404).send("Nothing here");
+    if (err.status == 404) {
+      res.status(404).send(err.message || "Nothing here");
     } else if (err.status == 400) {
       res.status(400).send(err.message || "Bad request");
     } else if (err.status == 401) {
