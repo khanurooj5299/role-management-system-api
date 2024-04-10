@@ -1,12 +1,12 @@
-import { verify } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 //this function is a factory for the actual middleware. config is based on roles array. can be used with or without roles.
-export function verifyJWt(roles) {
+export function verifyJwt(roles) {
   return (req, res, next) => {
     const authHeader = req.headers["authorization"];
     if (authHeader) {
       const token = authHeader.split(" ")[1];
-      verify(token, process.env.TOKEN_KEY, (err, payload) => {
+      jwt.verify(token, process.env.TOKEN_KEY, (err, payload) => {
         if (err) {
           throw {
             status: 401,

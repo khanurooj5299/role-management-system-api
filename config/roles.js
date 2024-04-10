@@ -9,7 +9,8 @@ const rolesArray = [
 //for using roles elsewhere
 const roles =Object.freeze({
   Admin : "admin",
-  Super_admin: "admin"
+  Super_admin: "admin",
+  Manager: "manager"
 });
 
 export {rolesArray as default, roles};
