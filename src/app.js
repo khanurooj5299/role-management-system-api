@@ -2,6 +2,7 @@ import express, { json } from "express";
 import cors from "cors";
 
 import authRouter from "./routers/auth.router.js";
+import adminRouter from "./routers/admin.router.js";
 
 export default function startApplication() {
   const app = express();
@@ -13,6 +14,7 @@ export default function startApplication() {
 
   //register paths
   app.use("/auth", authRouter);
+  app.use("/admin", adminRouter);
   //Wildcard path for catching everything that didn't match
   app.use("*", (req, res) => {
     throw new Error(404);
