@@ -8,10 +8,10 @@ export function verifyJwt(roles) {
       const token = authHeader.split(" ")[1];
       jwt.verify(token, process.env.TOKEN_KEY, (err, payload) => {
         if (err) {
-          throw {
+          next({
             status: 401,
             message: "Invalid Token",
-          };
+          });
         } else {
           //the token is valid
           //next check if role restriction also applies for this route
@@ -22,14 +22,15 @@ export function verifyJwt(roles) {
             }
             //the user does not have the permissions for this route
             else {
-              throw {
+              next({
                 status: 403,
                 message: "Access denied",
-              };
+              });
             }
+          } else {
+            //else if only being logged in is enough pass the request through
+            next();
           }
-          //else if only being logged in is enough pass the request through
-          next();
         }
       });
     }
